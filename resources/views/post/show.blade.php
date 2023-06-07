@@ -30,7 +30,7 @@
                                 onClick="return confirm('本当に削除しますか？');">削除</x-primary-button>
                         </form>
                     </div>
-                    {{-- div 追加部分 --}}
+                
                     <div>
                         <p class="mt-4 text-gray-600 py-4">{{ $post->body }}</p>
                         @if ($post->image)
@@ -44,8 +44,28 @@
                             <p> {{ $post->user->name }} • {{ $post->created_at->diffForHumans() }}</p>
                         </div>
                     </div>
-                    {{-- /div 追加部分 --}}
                 </div>
+
+                {{-- コメント入力欄 --}}
+                <div class="mt-4 mb-12">
+                    <form method="post" action="{{route('comment.store')}}">
+                        @csrf
+                        <input type="hidden" name='post_id' value="{{$post->id}}">
+                        <textarea name="body" class="bg-white w-full  rounded-2xl px-4 mt-4 py-4 shadow-lg hover:shadow-2xl transition duration-500" id="body" cols="30" rows="3" placeholder="コメントを入力してください">{{old('body')}}</textarea>
+                        <x-primary-button class="float-right mr-4 mb-12">コメントする</x-primary-button>
+                    </form>
+                </div>
+                
+                {{-- コメントを表示する --}}
+                @foreach ($post->comments as $comment)
+                <div class="bg-white w-full rounded-2xl px-10 py-8 shadow-lg hover:shadow-2xl transition duration-500 mt-8">
+                    {{ $comment->body }}
+                    <div class="text-sm font-semibold flex flex-row-reverse">
+                        <p>{{ $comment->user->name }}・{{ $comment->created_at->diffForHumans() }}</p>
+                    </div>
+                </div>                  
+                @endforeach
+                
             </div>
         </div>
     </div>

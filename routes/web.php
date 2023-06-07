@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
@@ -33,4 +34,9 @@ require __DIR__.'/auth.php';
 
 // Route::get('/post/create', [PostController::class, 'create']);
 
+// 記事関連のルート
 Route::resource('post', PostController::class);
+
+
+// コメントを投稿する
+Route::post('post/comment/store', [CommentController::class, 'store'])->name('comment.store');
