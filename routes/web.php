@@ -34,6 +34,9 @@ require __DIR__.'/auth.php';
 
 // Route::get('/post/create', [PostController::class, 'create']);
 
+
+// 自分の記事だけを一覧表示する
+Route::get('post/mypost', [PostController::class, 'mypost'])->name('post.mypost');
 // 記事関連のルート
 Route::resource('post', PostController::class);
 

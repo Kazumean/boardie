@@ -127,4 +127,12 @@ class PostController extends Controller
 
         return redirect()->route('post.index')->with('message', '投稿を削除しました。');
     }
+
+    // 自分の投稿だけを一覧表示する
+    public function mypost() {
+        $user = auth()->user()->id;
+        $posts = Post::where('user_id', $user)->orderBy('created_at', 'DESC')->get();
+
+        return view('post.mypost', compact('posts'));
+    }
 }
