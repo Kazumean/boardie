@@ -26,9 +26,9 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    // Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    // Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    // Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
 require __DIR__.'/auth.php';
@@ -50,5 +50,11 @@ Route::post('post/comment/store', [CommentController::class, 'store'])->name('co
 
 
 // お問い合わせ
-Route::get('contact/create', [ContactController::class, 'create'])->name('contact.create');
+Route::get('contact/create', [ContactController::class, 'create'])->name('contact.create')->middleware('guest');
 Route::post('contact/store',[ContactController::class, 'store'])->name('contact.store');
+
+
+// 管理者用画面
+Route::middleware(['can:admin'])->group(function() {
+    Route::get('profile/index', [ProfileController::class, 'index'])->name('profile.index');
+});
