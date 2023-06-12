@@ -1,9 +1,10 @@
 <?php
 
-use App\Http\Controllers\CommentController;
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PostController;
+use App\Http\Controllers\CommentController;
+use App\Http\Controllers\ContactController;
+use App\Http\Controllers\ProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -46,3 +47,8 @@ Route::resource('post', PostController::class);
 
 // コメントを投稿する
 Route::post('post/comment/store', [CommentController::class, 'store'])->name('comment.store');
+
+
+// お問い合わせ
+Route::get('contact/create', [ContactController::class, 'create'])->name('contact.create');
+Route::post('contact/store',[ContactController::class, 'store'])->name('contact.store');
